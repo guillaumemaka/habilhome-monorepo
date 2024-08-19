@@ -1,0 +1,42 @@
+### Git ###
+cdk
+
+.git*
+
+build.sh
+
+docker-compose*
+
+### Node.js ###
+# Dependency directories
+node_modules/
+
+# Logs
+logs
+*.log
+*.log.[0-9]
+log*
+
+# Coverage directory
+.env*
+
+lib-cov
+coverage
+.nyc_output
+
+# Optional NPM cache directory
+.npm
+
+
+### Project ###
+# Metafiles
+.editorocnfig
+circle*
+.circle*
+scripts
+api
+.env
+.vscode
+test-reports
+.github
+dist

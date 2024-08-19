@@ -1,0 +1,73 @@
+stages:
+  - test
+  - build
+
+test:
+  when: manual
+  only:
+    - branches
+    - merge_requests
+  image: node:10.18-jessie
+  stage: test
+  tags:
+    - habilhome
+  services:
+    - name: mongo:3-xenial
+      alias: mongodb
+  variables:
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: example
+    MONGO_HOST: mongodb
+    MONGO_USER: root
+    MONGO_PASS: example
+    MONGO_DB: vt
+    NODE_ENV: test
+  before_script:
+    - node -v
+    - yarn -v
+    - yarn install
+  script:
+    - echo "Running integration tests"
+    - yarn ci
+
+build:
+  when: manual
+  only:
+    - master
+  image: docker:19.03.5
+  stage: build
+  tags:
+    - habilhome
+  services:
+    - name: docker:19.03.5-dind
+      alias: docker-dind
+  variables:
+    # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+    # DOCKER_BUILD_KIT: 1
+    DOCKER_HOST: tcp://docker-dind:2375
+    DOCKER_TLS_CERTDIR: ""
+    TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+    TARGET: prod
+  before_script:
+    - apk add --no-cache curl python3
+    - python3 --version
+    - curl -O https://bootstrap.pypa.io/get-pip.py
+    - python3 get-pip.py --user
+    - export PATH=~/.local/bin:$PATH
+    - pip3 --version
+    - pip3 install awscli --upgrade --user
+  script:
+    - docker info
+    - aws --version
+    - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+    - docker pull $IMAGE:latest
+    - echo "Building $IMAGE_NAME:$TAG targeting $TARGET"
+    - docker build --cache-from $IMAGE:latest -t $IMAGE:$TAG --target $TARGET .
+    - echo "Tagging $IMAGE_NAME:$TAG to latest"
+    - docker tag $IMAGE:$TAG $IMAGE:latest
+    - echo "Pushing $IMAGE_NAME:$TAG"
+    - docker push $IMAGE:$TAG
+    - echo "Pushing $IMAGE_NAME:latest"
+    - docker push $IMAGE:latest
+
+

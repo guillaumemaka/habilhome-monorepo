@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/command-line.schema.json",
+  "commands": [
+    {
+      "commandKind": "bulk",
+      "name": "projen",
+      "description": "Run projen",
+      "summary": "Run projen",
+      "enableParallelism": false,
+      "ignoreMissingScript": true
+    },
+    {
+      "commandKind": "bulk",
+      "name": "upgrade-projen",
+      "description": "Run projen upgrade",
+      "summary": "Run projen",
+      "enableParallelism": false
+    }
+  ],
+  "parameters": [
+    {
+      "parameterKind": "flag",
+      "longName": "--no-post",
+      "associatedCommands": [
+        "projen",
+        "upgrade-projen"
+      ],
+      "description": "Skip post synthesize (dependencies install)",
+      "required": false
+    }
+  ]
+}

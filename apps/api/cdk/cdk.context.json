@@ -1,0 +1,45 @@
+{
+  "availability-zones:account=650988679566:region=ca-central-1": [
+    "ca-central-1a",
+    "ca-central-1b",
+    "ca-central-1d"
+  ],
+  "ssm:account=650988679566:parameterName=/habilhome/BaseVpcId:region=ca-central-1": "vpc-0a7a79b811cb4115a",
+  "vpc-provider:account=650988679566:filter.vpc-id=vpc-0a7a79b811cb4115a:region=ca-central-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0a7a79b811cb4115a",
+    "vpcCidrBlock": "10.0.0.0/24",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Private",
+        "type": "Private",
+        "subnets": [
+          {
+            "subnetId": "subnet-031e159e22c574345",
+            "cidr": "10.1.1.0/24",
+            "availabilityZone": "ca-central-1a",
+            "routeTableId": "rtb-044e0fbe7125c6aa7"
+          },
+          {
+            "subnetId": "subnet-0db2c1db5f08b4de6",
+            "cidr": "10.1.2.0/24",
+            "availabilityZone": "ca-central-1b",
+            "routeTableId": "rtb-044e0fbe7125c6aa7"
+          }
+        ]
+      },
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-04f05ffd60d308198",
+            "cidr": "10.0.0.0/24",
+            "availabilityZone": "ca-central-1a",
+            "routeTableId": "rtb-044e0fbe7125c6aa7"
+          }
+        ]
+      }
+    ]
+  }
+}

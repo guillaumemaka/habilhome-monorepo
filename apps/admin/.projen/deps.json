@@ -1,0 +1,388 @@
+{
+  "dependencies": [
+    {
+      "name": "@nuxtjs/eslint-config",
+      "version": "^0.0.1",
+      "type": "build"
+    },
+    {
+      "name": "@vue/test-utils",
+      "version": "^1.0.0-beta.29",
+      "type": "build"
+    },
+    {
+      "name": "autoprefixer",
+      "version": "^9.5.1",
+      "type": "build"
+    },
+    {
+      "name": "babel-core",
+      "version": "7.0.0-bridge.0",
+      "type": "build"
+    },
+    {
+      "name": "babel-eslint",
+      "version": "^8.2.1",
+      "type": "build"
+    },
+    {
+      "name": "babel-jest",
+      "version": "^23.6.0",
+      "type": "build"
+    },
+    {
+      "name": "cssnano",
+      "version": "^4.1.10",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-prettier",
+      "version": "^3.1.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-standard",
+      "version": ">=12.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-loader",
+      "version": "^2.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-import",
+      "version": ">=2.14.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-jest",
+      "version": ">=21.24.1",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-node",
+      "version": ">=7.0.1",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-prettier",
+      "version": "2.6.2",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-promise",
+      "version": ">=4.0.1",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-standard",
+      "version": ">=4.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-vue",
+      "version": "^5.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "version": "^5.0.1",
+      "type": "build"
+    },
+    {
+      "name": "glob-all",
+      "version": "3.1.0",
+      "type": "build"
+    },
+    {
+      "name": "jest",
+      "type": "build"
+    },
+    {
+      "name": "jest-junit",
+      "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "node-sass",
+      "version": "^4.11.0",
+      "type": "build"
+    },
+    {
+      "name": "nodemon",
+      "version": "^1.18.9",
+      "type": "build"
+    },
+    {
+      "name": "npm-check-updates",
+      "version": "^11",
+      "type": "build"
+    },
+    {
+      "name": "nuxt-purgecss",
+      "version": "^0.2.1",
+      "type": "build"
+    },
+    {
+      "name": "postcss-loader",
+      "version": "^3.0.0",
+      "type": "build"
+    },
+    {
+      "name": "postcss-preset-env",
+      "version": "^6.6.0",
+      "type": "build"
+    },
+    {
+      "name": "postcss-url",
+      "version": "^8.0.0",
+      "type": "build"
+    },
+    {
+      "name": "prettier",
+      "version": "1.14.3",
+      "type": "build"
+    },
+    {
+      "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "purgecss-webpack-plugin",
+      "version": "1.5.0",
+      "type": "build"
+    },
+    {
+      "name": "sass-loader",
+      "version": "7.1.0",
+      "type": "build"
+    },
+    {
+      "name": "stylus-loader",
+      "version": "^3.0.2",
+      "type": "build"
+    },
+    {
+      "name": "stylus",
+      "version": "^0.54.5",
+      "type": "build"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "1.0.1",
+      "type": "build"
+    },
+    {
+      "name": "vue-jest",
+      "version": "^3.0.2",
+      "type": "build"
+    },
+    {
+      "name": "@nuxtjs/axios",
+      "version": "^5.3.6",
+      "type": "runtime"
+    },
+    {
+      "name": "@nuxtjs/dotenv",
+      "version": "1.3.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@nuxtjs/proxy",
+      "version": "1.3.3",
+      "type": "runtime"
+    },
+    {
+      "name": "@nuxtjs/pwa",
+      "version": "^2.6.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@tinymce/tinymce-vue",
+      "version": "2.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@tweenjs/tween.js",
+      "version": "17.3.0",
+      "type": "runtime"
+    },
+    {
+      "name": "chartist",
+      "version": "0.11.0",
+      "type": "runtime"
+    },
+    {
+      "name": "cookieparser",
+      "version": "0.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "cross-env",
+      "version": "^5.2.0",
+      "type": "runtime"
+    },
+    {
+      "name": "es6-promise",
+      "version": "4.2.5",
+      "type": "runtime"
+    },
+    {
+      "name": "fullcalendar",
+      "version": "3.10.0",
+      "type": "runtime"
+    },
+    {
+      "name": "fuse.js",
+      "version": "3.4.2",
+      "type": "runtime"
+    },
+    {
+      "name": "google-maps",
+      "version": "3.3.0",
+      "type": "runtime"
+    },
+    {
+      "name": "jquery",
+      "version": "3.3.1",
+      "type": "runtime"
+    },
+    {
+      "name": "js-cookie",
+      "version": "2.2.0",
+      "type": "runtime"
+    },
+    {
+      "name": "json-form-data",
+      "version": "1.7.2",
+      "type": "runtime"
+    },
+    {
+      "name": "jvectormap-next",
+      "version": "3.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-cookie",
+      "version": "1.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa",
+      "version": "^2.6.2",
+      "type": "runtime"
+    },
+    {
+      "name": "lodash",
+      "version": "4.17.11",
+      "type": "runtime"
+    },
+    {
+      "name": "moment",
+      "version": "2.24.0",
+      "type": "runtime"
+    },
+    {
+      "name": "nouislider",
+      "version": "13.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "nuxt-validate",
+      "version": "0.1.2",
+      "type": "runtime"
+    },
+    {
+      "name": "nuxt",
+      "version": "^2.4.0",
+      "type": "runtime"
+    },
+    {
+      "name": "perfect-scrollbar",
+      "version": "1.4.0",
+      "type": "runtime"
+    },
+    {
+      "name": "remove-accents",
+      "version": "0.4.2",
+      "type": "runtime"
+    },
+    {
+      "name": "sweetalert2",
+      "version": "8.7.0",
+      "type": "runtime"
+    },
+    {
+      "name": "tinymce",
+      "version": "^5.0.9",
+      "type": "runtime"
+    },
+    {
+      "name": "vee-validate",
+      "version": "2.1.7",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-clickaway",
+      "version": "2.2.2",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-gravatar",
+      "version": "1.3.0",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-material",
+      "version": "vuematerial/vue-material#dev",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-router",
+      "version": "3.0.2",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-server-renderer",
+      "version": "^2.6.6",
+      "type": "runtime"
+    },
+    {
+      "name": "vue-template-compiler",
+      "version": "^2.6.6",
+      "type": "runtime"
+    },
+    {
+      "name": "vue",
+      "version": "^2.6.6",
+      "type": "runtime"
+    },
+    {
+      "name": "vue2-filters",
+      "version": "0.6.0",
+      "type": "runtime"
+    },
+    {
+      "name": "vue2-transitions",
+      "version": "0.2.3",
+      "type": "runtime"
+    },
+    {
+      "name": "vuetify-loader",
+      "version": "^1.2.1",
+      "type": "runtime"
+    },
+    {
+      "name": "vuetify",
+      "version": "^1.5.4",
+      "type": "runtime"
+    },
+    {
+      "name": "vuex",
+      "version": "^3.1.0",
+      "type": "runtime"
+    }
+  ],
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}

@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  app:
+    tty: true
+    command: jest  -ci --watch --verbose --forceExit --detectOpenHandles security-service
+    environment:
+      NODE_ENV: test
+      FALLBACK_EMAIL_ADDRESS: test@example.com
+

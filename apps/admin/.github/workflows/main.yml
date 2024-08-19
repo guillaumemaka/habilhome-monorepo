@@ -1,0 +1,210 @@
+name: Build, Test and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: yarn install -checkfiles
+
+      - name: Projen
+        run: yarn projen
+
+      - name: Build
+        run: yarn build
+
+  # test:
+  #   if: "!contains(github.event.head_commit.message, 'ci skip')"
+  #   name: test
+  #   needs: [ build ]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #    CI: 1
+  #   container:
+  #     image: node:14.15.1-stretch-slim
+  #   services:
+  #     localstack:
+  #       image: localstack
+  #       env:
+  #         SERVICES: s3,sqs
+  #         DEBUG: 1
+  #         LAMBDA_EXECUTOR: docker
+  #         DOCKER_HOST: unix:///var/run/docker.sock
+  #       ports:
+  #         - "4566:4566"
+  #         - "4571:4571"
+  #       volumes:
+  #         - "/var/run/docker.sock:/var/run/docker.sock"
+  #     mongodb:
+  #       image: mongo:4.2-alpine
+  #       ports:
+  #         - "27017:27017"
+  #       env:
+  #         MONGO_INITDB_ROOT_USERNAME: root
+  #         MONGO_INITDB_ROOT_PASSWORD: example
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+
+  #     - name: Install dependencies
+  #       run: yarn install --checkfiles
+
+  #     - name: Projen
+  #       run: yarn projen
+
+  #     - name: Run integration test
+  #       run: yarn ci
+  #       env:
+  #         JWT_SECRET: ${{ github.sha }}
+  #         NODE_ENV: test
+  #         MONGO_URI: mongodb://root:example@mongodb:${{ job.services.mongodb.ports[27017] }}/test_db?authSource=admin
+  #         AWS_ACCESS_KEY_ID: test
+  #         AWS_SECRET_ACCESS_KEY: test
+  #         AWS_ENDPOINT: http://localstack:${{ job.services.mongodb.localstack[4566] }}
+  #         AWS_BUCKET: assets
+
+  build-docker-image:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      TARGET: prod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Set Tag Name
+        id: vars
+        run: echo "::set-output name=tag_name::$TARGET-$(git rev-parse --short HEAD)"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push
+        id: docker_build
+        env:
+          ECR_REGISTRY: ${{ jobs.build-image.steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ steps.vars.outputs.tag_name }}
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:${{env.IMAGE_TAG}}
+            ${{ env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
+          cache-from: type=registry,ref=${{ env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
+          cache-to: type=inline
+
+  # deploy:
+  #   needs: [ build-docker-image ]
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, 'ci skip')"
+  #   env:
+  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #     AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  #     TARGET: prod
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         path: main
+
+  #     - name: Set Tag Name
+  #       working-directory: main
+  #       id: vars
+  #       run: echo "::set-output name=tag_name::$TARGET-$(git rev-parse --short HEAD)"
+
+  #     - name: Update Service Image
+  #       uses: ironhalik/docker-over-ssh-action@v1
+  #       env:
+  #         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+  #         IMAGE_TAG: ${{ steps.vars.outputs.tag_name }}
+
+  #       with:
+  #         user: ${{ secrets.SSH_USER }}
+  #         host: ${{ secrets.DOCKER_HOST }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         port: 22
+  #         script: |
+  #           docker info
+  #           aws ecr get-login --no-include-email --region ${{secrets.AWS_DEFAULT_REGION}}
+  #           docker login
+  #           docker pull "$ECR_REPOSITORY:$IMAGE_TAG"
+  #           docker service update --image="$ECR_REPOSITORY:$IMAGE_TAG" habilhome
+
+      # - uses: actions/checkout@v2
+      #   with:
+      #     repository: ${{ secrets.INFRA_CDK_REPO }}
+      #     path: infra
+
+      # - name: Setup Node JS
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '14.x'
+
+      # - run: |
+      #     yarn install --checkfiles
+      #     yarn projen
+      #   working-directory: main
+
+      # - run: |
+      #     yarn install --checkfiles
+      #     yarn projen
+      #   working-directory: infra
+
+      # - name: CDK Infra Bootstraping
+      #   uses: guillaumemaka/aws-cdk-github-actions@master
+      #   with:
+      #     cdk_subcommand: 'bootstrap'
+      #     aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+      #     aws_default_region: ${{ secrets.AWS_DEFAULT_REGION }}
+      #     cdk_args: --toolkit-stack-name ${{ secrets.TOOLKIT_STACK_NAME }}
+      #     working_dir: 'infra'
+      #     cdk_version: ${{ secrets.CDK_VERSION }}
+      #     actions_comment: false
+
+      # - name: cdk deploy
+      #   uses: guillaumemaka/aws-cdk-github-actions@master
+      #   env:
+      #     IMAGE_TAG: ${{ steps.vars.outputs.tag_name }}
+      #   with:
+      #     cdk_subcommand: 'deploy'
+      #     working_dir: 'main/cdk'
+      #     cdk_version: ${{ secrets.CDK_VERSION }}
+      #     cdk_args: '--require-approval never'
+      #     actions_comment: false

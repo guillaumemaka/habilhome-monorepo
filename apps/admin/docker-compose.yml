@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  web-admin:
+    build: .
+    ports:
+      - 4000:3000
+    volumes:
+      - ${PWD}:/src
+      - node_modules:/src/node_modules
+    networks:
+      - front
+  api:
+    image: vt-rest-api:latest
+    build:
+      context: ./api/
+    environment:
+      MONGO_HOST: mongodb
+      MONGO_USER: root
+      MONGO_PASS: example
+    volumes:
+      - ${PWD}/api:/app
+      - node_modules_api:/app/node_modules
+    ports:
+      - "3000:4000"
+    depends_on:
+      - mongodb
+    restart: always
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - front
+      - internal
+
+  mongodb:
+    image: mongo:3-stretch
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - internal
+    volumes:
+      - mongo_data:/data/db
+
+networks:
+  front:
+    driver: overlay
+    external: true
+  internal:
+    driver: overlay
+    external: false
+
+volumes:
+  node_modules:
+  node_modules_api:
+  mongo_data:

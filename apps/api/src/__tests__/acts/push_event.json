@@ -1,0 +1,14 @@
+{
+  "pull_request": {
+    "head": {
+      "ref": "sample-head-ref",
+      "commit": "update workflow \n# skip::test skip::deploy skip::build"
+    },
+    "head_commit": {
+      "message": "update workflow \n# skip::test skip::deploy skip::build"
+    },
+    "base": {
+      "ref": "sample-base-ref"
+    }
+  }
+}

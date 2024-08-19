@@ -1,0 +1,396 @@
+{
+  "dependencies": [
+    {
+      "name": "@babel/cli",
+      "version": "7.2.3",
+      "type": "build"
+    },
+    {
+      "name": "@babel/core",
+      "version": "7.3.4",
+      "type": "build"
+    },
+    {
+      "name": "@babel/node",
+      "version": "7.2.2",
+      "type": "build"
+    },
+    {
+      "name": "@babel/plugin-proposal-decorators",
+      "version": "7.3.0",
+      "type": "build"
+    },
+    {
+      "name": "@babel/plugin-proposal-object-rest-spread",
+      "version": "7.3.4",
+      "type": "build"
+    },
+    {
+      "name": "@babel/plugin-transform-runtime",
+      "version": "^7.2.0",
+      "type": "build"
+    },
+    {
+      "name": "@babel/preset-env",
+      "version": "^7.3.1",
+      "type": "build"
+    },
+    {
+      "name": "babel-core",
+      "version": "7.0.0-bridge.0",
+      "type": "build"
+    },
+    {
+      "name": "babel-eslint",
+      "version": "^10.0.1",
+      "type": "build"
+    },
+    {
+      "name": "esbuild",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-prettier",
+      "version": "^3.3.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-standard",
+      "version": "^12.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-import",
+      "version": "^2.14.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-jest",
+      "version": "^22.1.2",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-node",
+      "version": "^8.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-promise",
+      "version": "^4.0.1",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-standard",
+      "version": "^4.0.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "version": "^5.10.0",
+      "type": "build"
+    },
+    {
+      "name": "formdata-polyfill",
+      "type": "build"
+    },
+    {
+      "name": "husky",
+      "version": "^1.2.1",
+      "type": "build"
+    },
+    {
+      "name": "jest",
+      "type": "build"
+    },
+    {
+      "name": "jest-junit",
+      "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "json-form-data",
+      "version": "1.7.2",
+      "type": "build"
+    },
+    {
+      "name": "lint-staged",
+      "version": "^8.1.0",
+      "type": "build"
+    },
+    {
+      "name": "nodemon",
+      "version": "^1.18.9",
+      "type": "build"
+    },
+    {
+      "name": "npm-check-updates",
+      "version": "^11",
+      "type": "build"
+    },
+    {
+      "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "rimraf",
+      "version": "^2.6.2",
+      "type": "build"
+    },
+    {
+      "name": "smid",
+      "version": "^0.1.1",
+      "type": "build"
+    },
+    {
+      "name": "supertest",
+      "version": "^5.0.0",
+      "type": "build"
+    },
+    {
+      "name": "@babel/runtime",
+      "version": "^7.3.1",
+      "type": "runtime"
+    },
+    {
+      "name": "@koa/cors",
+      "version": "^2.2.2",
+      "type": "runtime"
+    },
+    {
+      "name": "@koa/multer",
+      "version": "3.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@koa/router",
+      "version": "8.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "accept-language-parser",
+      "version": "1.5.0",
+      "type": "runtime"
+    },
+    {
+      "name": "awilix-koa",
+      "version": "^4.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "awilix",
+      "version": "^4.0.1",
+      "type": "runtime"
+    },
+    {
+      "name": "aws-sdk",
+      "version": "2.769.0",
+      "type": "runtime"
+    },
+    {
+      "name": "axios",
+      "version": "^0.18.0",
+      "type": "runtime"
+    },
+    {
+      "name": "bcryptjs",
+      "version": "2.4.3",
+      "type": "runtime"
+    },
+    {
+      "name": "bluebird",
+      "version": "3.5.3",
+      "type": "runtime"
+    },
+    {
+      "name": "bristol",
+      "version": "^0.4.0",
+      "type": "runtime"
+    },
+    {
+      "name": "commander",
+      "version": "2.19.0",
+      "type": "runtime"
+    },
+    {
+      "name": "cross-env",
+      "version": "6.0.3",
+      "type": "runtime"
+    },
+    {
+      "name": "debug",
+      "version": "4.1.1",
+      "type": "runtime"
+    },
+    {
+      "name": "dotenv",
+      "version": "7.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "email-templates",
+      "version": "^5.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "fast-json-patch",
+      "version": "3.0.0-1",
+      "type": "runtime"
+    },
+    {
+      "name": "fejl",
+      "version": "^1.0.2",
+      "type": "runtime"
+    },
+    {
+      "name": "joi",
+      "version": "14.3.1",
+      "type": "runtime"
+    },
+    {
+      "name": "jsonwebtoken",
+      "version": "8.5.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-body",
+      "version": "4.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-bodyparser",
+      "version": "^4.2.1",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-compress",
+      "version": "^3.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-cookie",
+      "version": "1.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-passport",
+      "version": "4.1.1",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-respond",
+      "version": "^2.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa-roles",
+      "version": "2.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "koa",
+      "version": "^2.6.2",
+      "type": "runtime"
+    },
+    {
+      "name": "koa2-validation",
+      "version": "1.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "lodash",
+      "version": "4.17.20",
+      "type": "runtime"
+    },
+    {
+      "name": "mime",
+      "version": "2.4.3",
+      "type": "runtime"
+    },
+    {
+      "name": "mongoose-paginate-v2",
+      "version": "^1.0.23",
+      "type": "runtime"
+    },
+    {
+      "name": "mongoose",
+      "version": "^5.5.12",
+      "type": "runtime"
+    },
+    {
+      "name": "multer-s3-transform",
+      "version": "2.3.2",
+      "type": "runtime"
+    },
+    {
+      "name": "multer-s3",
+      "version": "2.9.0",
+      "type": "runtime"
+    },
+    {
+      "name": "multer-sharp-s3",
+      "version": "0.2.1",
+      "type": "runtime"
+    },
+    {
+      "name": "multer",
+      "version": "1.4.2",
+      "type": "runtime"
+    },
+    {
+      "name": "nats",
+      "version": "1.2.10",
+      "type": "runtime"
+    },
+    {
+      "name": "nodemailer",
+      "version": "^6.2.1",
+      "type": "runtime"
+    },
+    {
+      "name": "palin",
+      "version": "^2.2.0",
+      "type": "runtime"
+    },
+    {
+      "name": "passport-jwt",
+      "version": "4.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "passport",
+      "version": "0.4.0",
+      "type": "runtime"
+    },
+    {
+      "name": "password-prompt",
+      "version": "1.1.2",
+      "type": "runtime"
+    },
+    {
+      "name": "pug",
+      "version": "^2.0.3",
+      "type": "runtime"
+    },
+    {
+      "name": "readline-sync",
+      "version": "1.4.9",
+      "type": "runtime"
+    },
+    {
+      "name": "sharp",
+      "version": "0.24.0",
+      "type": "runtime"
+    },
+    {
+      "name": "slug",
+      "version": "1.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "yenv",
+      "version": "^2.1.0",
+      "type": "runtime"
+    }
+  ],
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}

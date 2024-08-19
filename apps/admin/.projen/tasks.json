@@ -1,0 +1,206 @@
+{
+  "tasks": {
+    "clobber": {
+      "name": "clobber",
+      "category": "30.maintain",
+      "description": "hard resets to HEAD of origin and cleans the local repo",
+      "env": {
+        "BRANCH": "$(git branch --show-current)"
+      },
+      "steps": [
+        {
+          "exec": "git checkout -b scratch",
+          "name": "save current HEAD in \"scratch\" branch"
+        },
+        {
+          "exec": "git checkout $BRANCH"
+        },
+        {
+          "exec": "git fetch origin",
+          "name": "fetch latest changes from origin"
+        },
+        {
+          "exec": "git reset --hard origin/$BRANCH",
+          "name": "hard reset to origin commit"
+        },
+        {
+          "exec": "git clean -fdx",
+          "name": "clean all untracked files"
+        },
+        {
+          "say": "ready to rock! (unpushed commits are under the \"scratch\" branch)"
+        }
+      ],
+      "condition": "git diff --exit-code > /dev/null"
+    },
+    "lint": {
+      "name": "lint",
+      "steps": [
+        {
+          "exec": "eslint --ext .js,.vue --ignore-path .gitignore ."
+        }
+      ]
+    },
+    "precommit": {
+      "name": "precommit",
+      "steps": [
+        {
+          "exec": "npm run lint"
+        }
+      ]
+    },
+    "heroku-postbuild": {
+      "name": "heroku-postbuild",
+      "steps": [
+        {
+          "exec": "yarn build"
+        }
+      ]
+    },
+    "vue-i18n-extract": {
+      "name": "vue-i18n-extract",
+      "steps": [
+        {
+          "exec": "vue-i18n-extract"
+        }
+      ]
+    },
+    "compile": {
+      "name": "compile",
+      "category": "00.build",
+      "description": "Only compile"
+    },
+    "test:compile": {
+      "name": "test:compile",
+      "category": "10.test",
+      "description": "compiles the test code"
+    },
+    "test": {
+      "name": "test",
+      "category": "10.test",
+      "description": "Run tests",
+      "steps": [
+        {
+          "spawn": "test:compile"
+        },
+        {
+          "exec": "jest --passWithNoTests --all"
+        }
+      ]
+    },
+    "test:watch": {
+      "name": "test:watch",
+      "category": "10.test",
+      "description": "Run jest in watch mode",
+      "steps": [
+        {
+          "exec": "jest --watch"
+        }
+      ]
+    },
+    "test:update": {
+      "name": "test:update",
+      "category": "10.test",
+      "description": "Update jest snapshots",
+      "steps": [
+        {
+          "exec": "jest --updateSnapshot"
+        }
+      ]
+    },
+    "upgrade-dependencies": {
+      "name": "upgrade-dependencies",
+      "description": "upgrade dependencies",
+      "env": {
+        "CI": "0"
+      },
+      "steps": [
+        {
+          "exec": "npm-check-updates --upgrade --target=minor --reject='projen'"
+        },
+        {
+          "exec": "pnpm i"
+        },
+        {
+          "exec": "pnpm update @nuxtjs/eslint-config @vue/test-utils autoprefixer babel-core babel-eslint babel-jest cssnano eslint-config-prettier eslint-config-standard eslint-loader eslint-plugin-import eslint-plugin-jest eslint-plugin-node eslint-plugin-prettier eslint-plugin-promise eslint-plugin-standard eslint-plugin-vue eslint glob-all jest jest-junit node-sass nodemon npm-check-updates nuxt-purgecss postcss-loader postcss-preset-env postcss-url prettier purgecss-webpack-plugin sass-loader stylus-loader stylus tailwindcss vue-jest @nuxtjs/axios @nuxtjs/dotenv @nuxtjs/proxy @nuxtjs/pwa @tinymce/tinymce-vue @tweenjs/tween.js chartist cookieparser cross-env es6-promise fullcalendar fuse.js google-maps jquery js-cookie json-form-data jvectormap-next koa-cookie koa lodash moment nouislider nuxt-validate nuxt perfect-scrollbar remove-accents sweetalert2 tinymce vee-validate vue-clickaway vue-gravatar vue-material vue-router vue-server-renderer vue-template-compiler vue vue2-filters vue2-transitions vuetify-loader vuetify vuex"
+        },
+        {
+          "exec": "npx projen"
+        }
+      ]
+    },
+    "upgrade-projen": {
+      "name": "upgrade-projen",
+      "description": "upgrade projen",
+      "env": {
+        "CI": "0"
+      },
+      "steps": [
+        {
+          "exec": "npm-check-updates --upgrade --target=minor --filter='projen'"
+        },
+        {
+          "exec": "pnpm i"
+        },
+        {
+          "exec": "pnpm update projen"
+        },
+        {
+          "exec": "npx projen"
+        }
+      ]
+    },
+    "default": {
+      "name": "default",
+      "steps": [
+        {
+          "exec": "node .projenrc.js"
+        }
+      ]
+    },
+    "projen": {
+      "name": "projen",
+      "steps": [
+        {
+          "exec": "npx projen --no-post"
+        }
+      ]
+    },
+    "build": {
+      "name": "build",
+      "steps": [
+        {
+          "exec": "nuxt build"
+        }
+      ]
+    },
+    "dev": {
+      "name": "dev",
+      "steps": [
+        {
+          "exec": "cross-env NODE_ENV=development nodemon server/index.js --watch server"
+        }
+      ]
+    },
+    "start": {
+      "name": "start",
+      "steps": [
+        {
+          "exec": "cross-env NODE_ENV=production node server/index.js"
+        }
+      ]
+    },
+    "generate": {
+      "name": "generate",
+      "steps": [
+        {
+          "exec": "nuxt generate"
+        }
+      ]
+    }
+  },
+  "env": {
+    "PATH": "$(npx -c \"node -e \\\"console.log(process.env.PATH)\\\"\")"
+  },
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}

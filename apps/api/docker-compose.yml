@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  app:
+    image: vt-rest-api:latest-dev
+    build:
+      context: .
+      target: dev
+    # env_file: .env
+    environment:
+      JWT_SECRET: averysecretkey
+      NODE_ENV: test
+      MONGO_URI: mongodb://root:example@mongodb:27017/habilhome_development?authSource=admin
+      AWS_ENDPOINT: http://aws_localstack:4566,
+      FALLBACK_EMAIL_ADDRESS: developer.habilhome@gmail.com
+    volumes:
+      - "${PWD}/src:/app/src:delegated"
+    ports:
+      - "5001:4000"
+    depends_on:
+      - mongodb
+      # - nats
+      - aws_localstack
+    restart: always
+
+  mongodb:
+    hostname: mongodb
+    image: mongo:4.4.4
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    # volumes:
+    #   - ./data/db:/data/db
+
+  aws_localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/health"]
+      interval: 30s
+      timeout: 10s
+    environment:
+      - HOSTNAME_EXTERNAL=aws_localstack
+      - SERVICES=s3,sqs
+      - DEBUG=1
+      - PORT_WEB_UI=${PORT_WEB_UI-8080}
+      - LAMBDA_EXECUTOR=docker
+      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOST_TMP_FOLDER=${TMPDIR}
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
